@@ -1,127 +1,104 @@
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Zap } from 'lucide-react'
-
-const navLinks = [
-  { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
-  { name: 'Services', href: '#services' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Contact', href: '#contact' },
-]
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { Search, SlidersHorizontal, Menu, X } from 'lucide-react'
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  useEffect(() => {
-    document.body.style.overflow = mobileOpen ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
-  }, [mobileOpen])
+  const [activeTab, setActiveTab] = useState('Episode')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const navItems = ['Home', 'About', 'Episode', 'Actors']
 
   return (
-    <>
-      <motion.nav
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled
-            ? 'py-3 bg-[#0a0a0c]/80 backdrop-blur-xl border-b border-white/5'
-            : 'py-5 bg-transparent'
-        }`}
-      >
-        <div className="container-custom flex items-center justify-between">
-          {/* Logo */}
-          <a href="#home" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#e63946] to-[#d4622a] flex items-center justify-center group-hover:shadow-[0_0_20px_rgba(230,57,70,0.4)] transition-shadow duration-300">
-              <Zap className="w-5 h-5 text-white" />
-            </div>
-            <span className="font-heading text-xl font-bold tracking-tight text-[#f0ede6]">
-              Vidio<span className="text-[#e63946]">.</span>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#080709]/80 backdrop-blur-md border-b border-white/5 py-4 px-6 md:px-12">
+      <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        {/* Left: Logo + Navigation Links */}
+        <div className="flex items-center gap-8 md:gap-12">
+          {/* Vidio Logo */}
+          <a href="#" className="flex items-center gap-1 group">
+            <span className="text-2xl md:text-3xl font-black italic tracking-wider text-[#ff0055] drop-shadow-[0_0_12px_rgba(255,0,85,0.6)]">
+              vidio
             </span>
           </a>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="px-4 py-2 text-sm text-[#9e9a93] hover:text-[#f0ede6] font-medium transition-colors duration-300 rounded-lg hover:bg-white/[0.03] relative group"
+          {/* Desktop Nav Links */}
+          <nav className="hidden md:flex items-center gap-8">
+            {navItems.map((item) => (
+              <button
+                key={item}
+                onClick={() => setActiveTab(item)}
+                className={`relative text-sm font-medium transition-colors ${
+                  activeTab === item ? 'text-white' : 'text-gray-400 hover:text-gray-200'
+                }`}
               >
-                {link.name}
-                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-gradient-to-r from-[#e63946] to-[#d4622a] group-hover:w-4 transition-all duration-300 rounded-full" />
-              </a>
+                {item}
+                {activeTab === item && (
+                  <motion.div
+                    layoutId="activeDot"
+                    className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#ff0055] shadow-[0_0_8px_#ff0055]"
+                  />
+                )}
+              </button>
             ))}
-          </div>
-
-          {/* CTA + Mobile Toggle */}
-          <div className="flex items-center gap-3">
-            <a
-              href="#contact"
-              className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white rounded-xl bg-gradient-to-r from-[#e63946] to-[#d4622a] hover:shadow-[0_4px_20px_rgba(230,57,70,0.35)] transition-all duration-300 hover:-translate-y-0.5"
-            >
-              Get Started
-            </a>
-            <button
-              id="mobile-menu-toggle"
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden w-10 h-10 flex items-center justify-center rounded-xl border border-white/10 text-[#f0ede6] hover:border-[#e63946]/40 transition-colors duration-300"
-              aria-label="Toggle menu"
-            >
-              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
-          </div>
+          </nav>
         </div>
-      </motion.nav>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-[#0a0a0c]/95 backdrop-blur-2xl md:hidden"
+        {/* Right: Search Bar & Filter Button */}
+        <div className="flex items-center gap-3">
+          {/* Search Bar */}
+          <div className="relative hidden sm:flex items-center">
+            <input
+              type="text"
+              placeholder="Tugas ujian aad"
+              className="w-48 lg:w-64 py-2 pl-4 pr-10 rounded-full bg-[#121116] border border-[#ff0055]/60 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-[#ff0055] focus:ring-1 focus:ring-[#ff0055] transition-all shadow-[0_0_10px_rgba(255,0,85,0.2)]"
+            />
+            <Search className="absolute right-3.5 w-4 h-4 text-gray-400" />
+          </div>
+
+          {/* Filter Button */}
+          <button className="p-2 rounded-full bg-[#121116] border border-white/10 hover:border-[#ff0055]/50 text-gray-300 hover:text-white transition-all">
+            <SlidersHorizontal className="w-4 h-4" />
+          </button>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded-lg bg-[#121116] border border-white/10 text-white"
           >
-            <div className="flex flex-col items-center justify-center h-full gap-2">
-              {navLinks.map((link, i) => (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
-                  transition={{ delay: i * 0.08, duration: 0.4 }}
-                  onClick={() => setMobileOpen(false)}
-                  className="text-3xl font-heading font-bold text-[#f0ede6] hover:text-[#e63946] transition-colors duration-300 py-3"
-                >
-                  {link.name}
-                </motion.a>
-              ))}
-              <motion.a
-                href="#contact"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                transition={{ delay: navLinks.length * 0.08, duration: 0.4 }}
-                onClick={() => setMobileOpen(false)}
-                className="mt-6 px-8 py-3.5 text-lg font-semibold text-white rounded-xl bg-gradient-to-r from-[#e63946] to-[#d4622a]"
-              >
-                Get Started
-              </motion.a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Nav Menu */}
+      {mobileMenuOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="md:hidden mt-4 pt-4 border-t border-white/10 flex flex-col gap-3 px-2"
+        >
+          {navItems.map((item) => (
+            <button
+              key={item}
+              onClick={() => {
+                setActiveTab(item)
+                setMobileMenuOpen(false)
+              }}
+              className={`text-left text-sm py-2 font-medium ${
+                activeTab === item ? 'text-[#ff0055]' : 'text-gray-300'
+              }`}
+            >
+              {item}
+            </button>
+          ))}
+          <div className="relative flex items-center mt-2">
+            <input
+              type="text"
+              placeholder="Tugas ujian aad"
+              className="w-full py-2 pl-4 pr-10 rounded-full bg-[#121116] border border-[#ff0055]/60 text-xs text-white placeholder-gray-400 focus:outline-none"
+            />
+            <Search className="absolute right-3.5 w-4 h-4 text-gray-400" />
+          </div>
+        </motion.div>
+      )}
+    </header>
   )
 }

@@ -1,165 +1,103 @@
-import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-import { Play, ArrowRight, Star } from 'lucide-react'
-import gsap from 'gsap'
+import { Crown, Play, ArrowRight, Pencil } from 'lucide-react'
 
 export default function Hero() {
-  const heroRef = useRef(null)
-  const orbRef1 = useRef(null)
-  const orbRef2 = useRef(null)
-  const orbRef3 = useRef(null)
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.to(orbRef1.current, {
-        y: -30, x: 15, duration: 4, repeat: -1, yoyo: true, ease: 'sine.inOut',
-      })
-      gsap.to(orbRef2.current, {
-        y: 20, x: -20, duration: 5, repeat: -1, yoyo: true, ease: 'sine.inOut',
-      })
-      gsap.to(orbRef3.current, {
-        y: -15, x: 10, rotation: 360, duration: 20, repeat: -1, ease: 'none',
-      })
-    }, heroRef)
-    return () => ctx.revert()
-  }, [])
-
-  const containerVariants = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.12, delayChildren: 0.3 } },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1, y: 0,
-      transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] },
-    },
-  }
-
   return (
-    <section
-      id="home"
-      ref={heroRef}
-      className="relative min-h-screen flex items-center overflow-hidden bg-dots noise-overlay"
-    >
-      {/* Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Main gradient orb */}
-        <div
-          ref={orbRef1}
-          className="absolute top-1/4 -left-32 w-[500px] h-[500px] rounded-full opacity-20"
-          style={{ background: 'radial-gradient(circle, #e63946 0%, transparent 70%)' }}
-        />
-        {/* Secondary orb */}
-        <div
-          ref={orbRef2}
-          className="absolute bottom-1/4 -right-40 w-[600px] h-[600px] rounded-full opacity-15"
-          style={{ background: 'radial-gradient(circle, #d4622a 0%, transparent 70%)' }}
-        />
-        {/* Spinning ring */}
-        <div
-          ref={orbRef3}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-white/[0.02] opacity-60"
-        />
-        {/* Grid lines */}
-        <div className="absolute inset-0 opacity-[0.015]"
-          style={{
-            backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
-            backgroundSize: '100px 100px'
-          }}
-        />
-      </div>
+    <section className="relative min-h-screen pt-28 pb-16 px-6 md:px-12 flex flex-col justify-between overflow-hidden bg-[#080709] bg-grid-pattern">
+      {/* Background Ambient Glows */}
+      <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-[#d48806]/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/4 left-10 w-80 h-80 bg-[#ff0055]/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="container-custom relative z-10 pt-28 pb-20 md:pt-36 md:pb-28">
+      <div className="max-w-7xl mx-auto w-full grid md:grid-cols-12 gap-8 items-center relative z-10 my-auto">
+        {/* Left Column: Title & Metadata & Action Buttons */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="max-w-4xl"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          className="md:col-span-6 lg:col-span-7 flex flex-col items-start"
         >
-          {/* Badge */}
-          <motion.div variants={itemVariants} className="mb-8">
-            <span className="section-tag">
-              <Star className="w-3.5 h-3.5" />
-              Award-Winning Creative Studio
-            </span>
+          {/* Main Title: STUDY GROUP with pencil detail */}
+          <div className="relative mb-6">
+            <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black italic tracking-tighter text-white leading-none uppercase font-heading select-none">
+              STUDY
+              <br />
+              <span className="relative inline-block">
+                GROUP
+                {/* Stylized Pencil Graphic on the title like in the image */}
+                <motion.div
+                  initial={{ rotate: -15, scale: 0 }}
+                  animate={{ rotate: 0, scale: 1 }}
+                  transition={{ delay: 0.5, type: 'spring' }}
+                  className="absolute -top-2 -right-10 md:-right-14 text-white"
+                >
+                  <Pencil className="w-10 h-10 md:w-14 md:h-14 stroke-[2.5] text-white -rotate-45 drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
+                </motion.div>
+              </span>
+            </h1>
+          </div>
+
+          {/* Metadata Row */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="flex items-center flex-wrap gap-2 text-xs md:text-sm font-semibold text-gray-300 mb-10 bg-[#121116]/80 px-4 py-2 rounded-lg border border-white/5 backdrop-blur-sm"
+          >
+            <Crown className="w-4 h-4 text-[#d48806] fill-[#d48806]" />
+            <span className="text-gray-500">|</span>
+            <span>13+</span>
+            <span className="text-gray-500">|</span>
+            <span>2025</span>
+            <span className="text-gray-500">|</span>
+            <span>4 Episodes</span>
+            <span className="text-gray-500">|</span>
+            <span className="text-[#ff0055]">Action</span>
+            <span className="text-gray-500">|</span>
+            <span>Thriller</span>
           </motion.div>
-
-          {/* Main Heading */}
-          <motion.h1
-            variants={itemVariants}
-            className="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.95] tracking-tight mb-8"
-          >
-            <span className="block text-[#f0ede6]">We Craft</span>
-            <span className="block gradient-text mt-1">Cinematic</span>
-            <span className="block text-[#f0ede6] mt-1">Experiences<span className="text-[#e63946]">.</span></span>
-          </motion.h1>
-
-          {/* Description */}
-          <motion.p
-            variants={itemVariants}
-            className="text-lg md:text-xl text-[#9e9a93] max-w-xl leading-relaxed mb-10"
-          >
-            A premium digital studio specializing in immersive brand identities,
-            cinematic web experiences, and visual storytelling that captivates audiences worldwide.
-          </motion.p>
 
           {/* CTA Buttons */}
-          <motion.div variants={itemVariants} className="flex flex-wrap gap-4 mb-16">
-            <a href="#projects" className="btn-primary inline-flex items-center gap-2 group">
-              <Play className="w-4 h-4" />
-              View Our Work
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-            </a>
-            <a href="#about" className="btn-secondary inline-flex items-center gap-2">
-              Learn More
-            </a>
-          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="flex items-center gap-4"
+          >
+            {/* Solid Pink WATCH NOW Pill Button */}
+            <button className="px-10 py-4 rounded-full bg-[#ff0055] text-white font-extrabold text-sm uppercase tracking-wider glow-pink-btn hover:bg-[#ff1a68] hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center">
+              WATCH NOW
+            </button>
 
-          {/* Stats row */}
-          <motion.div variants={itemVariants} className="flex flex-wrap gap-8 md:gap-14">
-            {[
-              { value: '200+', label: 'Projects Delivered' },
-              { value: '50+', label: 'Global Clients' },
-              { value: '15+', label: 'Awards Won' },
-            ].map((stat) => (
-              <div key={stat.label}>
-                <div className="text-3xl md:text-4xl font-heading font-bold gradient-text">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-[#6b6760] mt-1">{stat.label}</div>
-              </div>
-            ))}
+            {/* Next Icon Button */}
+            <button className="w-12 h-12 rounded-full bg-[#121116] border border-white/20 text-white flex items-center justify-center hover:border-[#ff0055] hover:text-[#ff0055] transition-all">
+              <ArrowRight className="w-5 h-5" />
+            </button>
           </motion.div>
         </motion.div>
 
-        {/* Decorative side element */}
+        {/* Right Column: Hero Character Visual */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="hidden lg:block absolute right-10 top-1/2 -translate-y-1/2"
+          transition={{ duration: 0.9 }}
+          className="md:col-span-6 lg:col-span-5 relative flex justify-center md:justify-end"
         >
-          <div className="relative w-72 h-72">
-            {/* Rotating rings */}
-            <div className="absolute inset-0 rounded-full border border-[#e63946]/20 animate-spin-slow" />
-            <div className="absolute inset-4 rounded-full border border-[#d4622a]/15" style={{ animation: 'spin-slow 15s linear infinite reverse' }} />
-            <div className="absolute inset-8 rounded-full border border-[#d4972a]/10 animate-spin-slow" />
-            {/* Center dot */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-4 h-4 rounded-full bg-gradient-to-r from-[#e63946] to-[#d4622a] animate-pulse-glow" />
-            </div>
-            {/* Orbit dots */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#e63946]/60" />
-            <div className="absolute bottom-8 right-0 w-2 h-2 rounded-full bg-[#d4622a]/50" />
-            <div className="absolute top-16 left-0 w-1.5 h-1.5 rounded-full bg-[#d4972a]/40" />
+          <div className="relative w-full max-w-md aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-white/10 group">
+            <img
+              src="/images/hero_actor.png"
+              alt="Study Group Yoon Ga-min"
+              className="w-full h-full object-cover object-top filter brightness-95 contrast-105 group-hover:scale-105 transition-transform duration-700"
+            />
+            {/* Ambient vignette overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#080709] via-transparent to-transparent opacity-80" />
           </div>
         </motion.div>
       </div>
 
-      {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0a0c] to-transparent z-10" />
+      {/* Neon Red Line Divider (separating Hero and Actor List) */}
+      <div className="mt-12 w-full max-w-7xl mx-auto">
+        <div className="neon-line-divider" />
+      </div>
     </section>
   )
 }

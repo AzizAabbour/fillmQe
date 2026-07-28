@@ -1,84 +1,71 @@
-import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
-import { Shield, Zap, Users, Globe, Clock, Award } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Tv, Sparkles, Zap, Shield, Globe, Award } from 'lucide-react'
 
 const features = [
   {
-    icon: <Shield className="w-6 h-6" />,
-    title: 'Quality Guaranteed',
-    desc: 'We deliver pixel-perfect results with rigorous quality control at every stage.',
+    icon: <Tv className="w-6 h-6 text-[#ff0055]" />,
+    title: 'Ultra HD 4K Streaming',
+    desc: 'Experience pristine video quality with high dynamic range audio and crystal clear visual clarity.',
   },
   {
-    icon: <Zap className="w-6 h-6" />,
-    title: 'Lightning Fast',
-    desc: 'Optimized workflows and agile methodology ensure rapid delivery without compromising quality.',
+    icon: <Sparkles className="w-6 h-6 text-[#ff0055]" />,
+    title: 'Exclusive Premieres',
+    desc: 'Watch original dramas, action series, and blockbuster movies first on Vidio.',
   },
   {
-    icon: <Users className="w-6 h-6" />,
-    title: 'Dedicated Team',
-    desc: 'A passionate team of experts fully invested in your project success from day one.',
+    icon: <Zap className="w-6 h-6 text-[#ff0055]" />,
+    title: 'Zero Buffering Speed',
+    desc: 'Powered by lightning-fast CDN edge servers ensuring seamless instant playback.',
   },
   {
-    icon: <Globe className="w-6 h-6" />,
-    title: 'Global Reach',
-    desc: 'We serve clients worldwide with culturally aware designs that resonate across borders.',
+    icon: <Shield className="w-6 h-6 text-[#ff0055]" />,
+    title: 'Multi-Device Support',
+    desc: 'Stream across Smart TVs, phones, tablets, and desktops with synchronized progress.',
   },
   {
-    icon: <Clock className="w-6 h-6" />,
-    title: '24/7 Support',
-    desc: 'Round-the-clock availability with dedicated project managers for seamless communication.',
+    icon: <Globe className="w-6 h-6 text-[#ff0055]" />,
+    title: 'Global Subtitles',
+    desc: 'Multi-language subtitles and professional voice dubbed audio options.',
   },
   {
-    icon: <Award className="w-6 h-6" />,
-    title: 'Award Winning',
-    desc: 'Recognized by industry leaders for innovative design and exceptional execution.',
+    icon: <Award className="w-6 h-6 text-[#ff0055]" />,
+    title: 'Award Winning Originals',
+    desc: 'Home to critically acclaimed series like Study Group, Squid Game, and Moving.',
   },
 ]
 
 export default function Features() {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
-
   return (
-    <section className="section-padding relative overflow-hidden bg-[#0d0d10]" ref={ref}>
-      {/* Decorative */}
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full opacity-[0.04] pointer-events-none"
-        style={{ background: 'radial-gradient(circle, #d4972a 0%, transparent 70%)' }}
-      />
-
-      <div className="container-custom relative z-10">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center max-w-2xl mx-auto mb-16"
-        >
-          <span className="section-tag mb-6 inline-flex">Why Choose Us</span>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-[#f0ede6] mt-6 mb-5 leading-tight">
-            Built for <span className="gradient-text">Excellence</span>
+    <section className="py-20 px-6 md:px-12 bg-[#080709] border-t border-white/5">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <span className="px-6 py-2 rounded-full bg-[#ff0055]/10 border border-[#ff0055]/40 text-[#ff0055] text-xs font-extrabold uppercase tracking-widest">
+            Premium Features
+          </span>
+          <h2 className="text-3xl md:text-5xl font-black italic uppercase text-white tracking-tight mt-4">
+            Why Watch On Vidio
           </h2>
-          <p className="text-[#9e9a93] text-lg">
-            We combine creative expertise with technical precision to deliver
-            results that exceed expectations.
-          </p>
-        </motion.div>
+        </div>
 
-        {/* Features Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, i) => (
             <motion.div
               key={feature.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.08, duration: 0.6 }}
-              className="group p-6 rounded-2xl border border-[#2a2a30] bg-[#111115]/60 hover:border-[#e63946]/20 hover:bg-[#16161a]/80 transition-all duration-500 cursor-pointer"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="p-8 rounded-3xl vidio-card border border-white/5 hover:border-[#ff0055]/50 transition-all duration-300 group"
             >
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#e63946]/10 to-transparent border border-[#e63946]/15 flex items-center justify-center text-[#e63946] mb-5 group-hover:from-[#e63946]/20 group-hover:border-[#e63946]/30 group-hover:scale-110 transition-all duration-300">
+              <div className="w-14 h-14 rounded-2xl bg-[#ff0055]/10 border border-[#ff0055]/30 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 {feature.icon}
               </div>
-              <h3 className="font-heading text-lg font-semibold text-[#f0ede6] mb-2">{feature.title}</h3>
-              <p className="text-sm text-[#6b6760] leading-relaxed">{feature.desc}</p>
+              <h3 className="font-bold text-lg text-white mb-2 group-hover:text-[#ff0055] transition-colors">
+                {feature.title}
+              </h3>
+              <p className="text-sm text-gray-400 leading-relaxed">
+                {feature.desc}
+              </p>
             </motion.div>
           ))}
         </div>

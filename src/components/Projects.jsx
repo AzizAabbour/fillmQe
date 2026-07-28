@@ -1,112 +1,82 @@
-import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
-import { ExternalLink, ArrowUpRight } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Play, Star, Sparkles } from 'lucide-react'
 
-const projects = [
+const trendingSeries = [
   {
-    title: 'Neon Horizons',
-    category: 'Brand Identity',
-    year: '2025',
-    desc: 'A futuristic rebrand for a leading tech startup, blending neon aesthetics with minimalist design.',
-    gradient: 'from-[#e63946]/30 to-[#d4622a]/20',
-    accent: '#e63946',
+    title: 'Squid Game 2',
+    genre: 'Thriller · Action',
+    rating: '4.9',
+    episodes: '9 Episodes',
+    image: '/images/poster_squidgame.png',
   },
   {
-    title: 'Atlas Interactive',
-    category: 'Web Experience',
-    year: '2024',
-    desc: 'An immersive 3D web experience for a global travel platform with scroll-driven storytelling.',
-    gradient: 'from-[#d4622a]/30 to-[#d4972a]/20',
-    accent: '#d4622a',
+    title: 'Study Group',
+    genre: 'Action · Drama',
+    rating: '5.0',
+    episodes: '4 Episodes',
+    image: '/images/poster_studygroup.png',
   },
   {
-    title: 'Echoes Film Fest',
-    category: 'Motion Design',
-    year: '2024',
-    desc: 'Complete visual identity and promotional campaign for an independent film festival.',
-    gradient: 'from-[#d4972a]/30 to-[#c9a84c]/20',
-    accent: '#d4972a',
-  },
-  {
-    title: 'Velocity App',
-    category: 'App Development',
-    year: '2025',
-    desc: 'A performance-focused fitness app with real-time tracking and cinematic UI transitions.',
-    gradient: 'from-[#c9a84c]/30 to-[#e63946]/20',
-    accent: '#c9a84c',
+    title: 'Moving',
+    genre: 'Sci-Fi · Fantasy',
+    rating: '4.8',
+    episodes: '20 Episodes',
+    image: '/images/poster_studygroup.png',
   },
 ]
 
 export default function Projects() {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
-
   return (
-    <section id="projects" className="section-padding relative overflow-hidden" ref={ref}>
-      <div className="container-custom relative z-10">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6"
-        >
+    <section id="projects" className="py-20 px-6 md:px-12 bg-[#080709] border-t border-white/5">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex items-center justify-between mb-12">
           <div>
-            <span className="section-tag mb-6 inline-flex">Selected Work</span>
-            <h2 className="font-heading text-4xl md:text-5xl font-bold text-[#f0ede6] mt-6 leading-tight">
-              Featured <span className="gradient-text">Projects</span>
+            <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#ff0055] mb-2">
+              <Sparkles className="w-4 h-4" /> Trending Now
+            </span>
+            <h2 className="text-3xl md:text-5xl font-black italic uppercase text-white tracking-tight">
+              Popular Releases
             </h2>
           </div>
-          <a href="#projects" className="btn-secondary inline-flex items-center gap-2 self-start md:self-auto text-sm">
-            View All Projects
-            <ArrowUpRight className="w-4 h-4" />
-          </a>
-        </motion.div>
+          <button className="hidden sm:block px-6 py-2.5 rounded-full border border-[#ff0055]/50 text-xs font-extrabold uppercase tracking-wider text-white hover:bg-[#ff0055] transition-all">
+            Explore All
+          </button>
+        </div>
 
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
-          {projects.map((project, i) => (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {trendingSeries.map((series, index) => (
             <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 50 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.12, duration: 0.7 }}
-              className="group relative glass-card overflow-hidden card-hover cursor-pointer"
+              key={series.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.15 }}
+              className="group rounded-3xl overflow-hidden vidio-card border border-white/10 hover:border-[#ff0055]/60 transition-all duration-500 cursor-pointer"
             >
-              {/* Project Image Placeholder */}
-              <div className={`relative h-56 md:h-64 bg-gradient-to-br ${project.gradient} overflow-hidden`}>
-                {/* Abstract composition */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-30 group-hover:opacity-50 transition-opacity duration-500">
-                  <div className="w-32 h-32 rounded-full border-2 border-white/20 group-hover:scale-125 transition-transform duration-700" />
-                  <div className="absolute w-20 h-20 rounded-full border border-white/10 translate-x-10 group-hover:scale-110 transition-transform duration-700 delay-100" />
-                </div>
-                {/* Project initial */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-heading text-7xl font-bold text-white/10 group-hover:text-white/20 transition-colors duration-500 group-hover:scale-110 transform">
-                    {project.title.charAt(0)}
-                  </span>
-                </div>
-                {/* Overlay on hover */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                  <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 scale-75 group-hover:scale-100 transition-transform duration-500">
-                    <ExternalLink className="w-5 h-5 text-white" />
-                  </div>
-                </div>
-                {/* Year badge */}
-                <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md text-xs font-medium text-white/70 border border-white/10">
-                  {project.year}
+              <div className="relative h-80 overflow-hidden">
+                <img
+                  src={series.image}
+                  alt={series.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#121116] via-transparent to-transparent opacity-90" />
+                <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-xs font-bold text-[#d48806] flex items-center gap-1 border border-[#d48806]/30">
+                  <Star className="w-3.5 h-3.5 fill-[#d48806]" /> {series.rating}
                 </div>
               </div>
 
-              {/* Info */}
-              <div className="p-6">
-                <div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: project.accent }}>
-                  {project.category}
+              <div className="p-6 bg-[#121116] flex items-center justify-between">
+                <div>
+                  <h3 className="font-bold text-xl text-white group-hover:text-[#ff0055] transition-colors">
+                    {series.title}
+                  </h3>
+                  <p className="text-xs font-medium text-gray-400 mt-1">
+                    {series.genre} • {series.episodes}
+                  </p>
                 </div>
-                <h3 className="font-heading text-xl font-bold text-[#f0ede6] mb-2 group-hover:text-white transition-colors duration-300">
-                  {project.title}
-                </h3>
-                <p className="text-sm text-[#6b6760] leading-relaxed">{project.desc}</p>
+                <div className="w-10 h-10 rounded-full bg-[#ff0055] text-white flex items-center justify-center shadow-[0_0_12px_#ff0055] group-hover:scale-110 transition-transform">
+                  <Play className="w-5 h-5 fill-white translate-x-0.5" />
+                </div>
               </div>
             </motion.div>
           ))}

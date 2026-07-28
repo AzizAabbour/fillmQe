@@ -1,4 +1,4 @@
-import { Zap, ArrowUp, Dribbble, Twitter, Linkedin, Instagram } from 'lucide-react'
+import { Zap, ArrowUp, Globe, Share2, MessageSquare, Send } from 'lucide-react'
 
 const footerLinks = {
   Company: ['About', 'Careers', 'Blog', 'Press'],
@@ -7,10 +7,10 @@ const footerLinks = {
 }
 
 const socials = [
-  { icon: <Twitter className="w-4 h-4" />, href: '#', label: 'Twitter' },
-  { icon: <Instagram className="w-4 h-4" />, href: '#', label: 'Instagram' },
-  { icon: <Linkedin className="w-4 h-4" />, href: '#', label: 'LinkedIn' },
-  { icon: <Dribbble className="w-4 h-4" />, href: '#', label: 'Dribbble' },
+  { icon: <Globe className="w-4 h-4" />, href: '#', label: 'Website' },
+  { icon: <Share2 className="w-4 h-4" />, href: '#', label: 'Share' },
+  { icon: <MessageSquare className="w-4 h-4" />, href: '#', label: 'Chat' },
+  { icon: <Send className="w-4 h-4" />, href: '#', label: 'Telegram' },
 ]
 
 export default function Footer() {
