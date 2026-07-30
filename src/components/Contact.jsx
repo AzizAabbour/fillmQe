@@ -38,8 +38,8 @@ export default function Contact() {
             className="lg:col-span-2 space-y-6"
           >
             {[
-              { icon: <Mail className="w-5 h-5" />, label: 'Email Us', value: 'hello@vidio.studio', href: 'mailto:hello@vidio.studio' },
-              { icon: <Phone className="w-5 h-5" />, label: 'Call Us', value: '+1 (555) 234-5678', href: 'tel:+15552345678' },
+              { icon: <Mail className="w-5 h-5" />, label: 'Email Us', value: 'aziz.abour@gmail.com', href: 'mailto:aziz.abour@gmail.com' },
+              { icon: <Phone className="w-5 h-5" />, label: 'Call Us', value: '0777996998', href: 'tel:0777996998' },
               { icon: <MapPin className="w-5 h-5" />, label: 'Visit Us', value: '123 Creative Ave, San Francisco, CA', href: '#' },
             ].map((item, i) => (
               <motion.a

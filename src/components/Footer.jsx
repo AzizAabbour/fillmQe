@@ -1,3 +1,4 @@
+import { color } from 'framer-motion'
 import { Zap, ArrowUp, Globe, Share2, MessageSquare, Send } from 'lucide-react'
 
 const footerLinks = {
@@ -71,8 +72,10 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="border-t border-[#1a1a1e]">
         <div className="container-custom py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-[#4a4a50]">
-            © 2025 Vidio Studio. All rights reserved.
+          <p className="text-xs text-[#4a4a50] text-center">
+          </p>
+          <p className="text-xs text-[#4a4a50] text-center">
+            Created with <span className="text-[#e63946]">CreoLab-web</span>  by <a href="mailto:azizabour77@gmail.com">aziz.abour</a>.
           </p>
           <button
             onClick={scrollToTop}

@@ -3,19 +3,34 @@ import { Crown, Play, ArrowRight, Pencil } from 'lucide-react'
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen pt-28 pb-16 px-6 md:px-12 flex flex-col justify-between overflow-hidden bg-[#080709] bg-grid-pattern">
+    <section className="relative min-h-screen pt-28 pb-16 px-6 md:px-12 flex flex-col justify-between overflow-hidden bg-[#080709]">
+      {/* Cinematic Full-screen Background Image & Blending Gradients */}
+      <div className="absolute inset-0 z-0 select-none pointer-events-none">
+        <img
+          src="/images/hero_bg.png"
+          alt="Hero Background"
+          className="w-full h-full object-cover object-center opacity-[0.32] filter brightness-45 contrast-[1.08] saturate-[0.9]"
+        />
+        {/* Dark overlay gradients to merge image with theme and ensure text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080709] via-[#080709]/75 to-[#080709]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#080709] via-transparent to-[#080709]/80" />
+      </div>
+
+      {/* Grid Pattern overlay */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-40 z-0 pointer-events-none" />
+
       {/* Background Ambient Glows */}
-      <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-[#d48806]/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-1/4 left-10 w-80 h-80 bg-[#ff0055]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-[#d48806]/10 rounded-full blur-3xl pointer-events-none z-0" />
+      <div className="absolute top-1/4 left-10 w-80 h-80 bg-[#ff0055]/5 rounded-full blur-3xl pointer-events-none z-0" />
 
       <div className="max-w-7xl mx-auto w-full grid md:grid-cols-12 gap-8 items-center relative z-10 my-auto">
         {/* Left Column: Title & Metadata & Action Buttons */}
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          className="md:col-span-6 lg:col-span-7 flex flex-col items-start"
-        >
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="md:col-span-8 lg:col-span-7 flex flex-col items-center text-center z-10"
+          >
           {/* Main Title: STUDY GROUP with pencil detail */}
           <div className="relative mb-6">
             <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black italic tracking-tighter text-white leading-none uppercase font-heading select-none">
@@ -73,24 +88,6 @@ export default function Hero() {
               <ArrowRight className="w-5 h-5" />
             </button>
           </motion.div>
-        </motion.div>
-
-        {/* Right Column: Hero Character Visual */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9 }}
-          className="md:col-span-6 lg:col-span-5 relative flex justify-center md:justify-end"
-        >
-          <div className="relative w-full max-w-md aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-white/10 group">
-            <img
-              src="/images/hero_actor.png"
-              alt="Study Group Yoon Ga-min"
-              className="w-full h-full object-cover object-top filter brightness-95 contrast-105 group-hover:scale-105 transition-transform duration-700"
-            />
-            {/* Ambient vignette overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#080709] via-transparent to-transparent opacity-80" />
-          </div>
         </motion.div>
       </div>
 

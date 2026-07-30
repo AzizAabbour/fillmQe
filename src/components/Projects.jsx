@@ -18,10 +18,31 @@ const trendingSeries = [
   },
   {
     title: 'Moving',
-    genre: 'Sci-Fi · Fantasy',
+    genre: 'Sci-Fi · Action',
     rating: '4.8',
     episodes: '20 Episodes',
-    image: '/images/poster_studygroup.png',
+    image: '/images/poster_moving.png',
+  },
+  {
+    title: 'Hellbound',
+    genre: 'Supernatural · Thriller',
+    rating: '4.7',
+    episodes: '6 Episodes',
+    image: '/images/poster_hellbound.png',
+  },
+  {
+    title: 'Bloodhounds',
+    genre: 'Action · Noir',
+    rating: '4.9',
+    episodes: '8 Episodes',
+    image: '/images/poster_bloodhounds.png',
+  },
+  {
+    title: 'All of Us Are Dead',
+    genre: 'Horror · Suspense',
+    rating: '4.8',
+    episodes: '12 Episodes',
+    image: '/images/poster_allofusaredead.png',
   },
 ]
 
